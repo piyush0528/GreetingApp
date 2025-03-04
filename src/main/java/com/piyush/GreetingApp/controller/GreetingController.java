@@ -60,4 +60,9 @@ public class GreetingController {
             @RequestParam(required = false) String lastName) {
         return greetingService.saveGreeting(firstName, lastName);
     }
+
+    @GetMapping("getId/{id}")
+    public Greeting getGreetingById(@PathVariable Long id){
+        return greetingService.getGreetById(id);
+    }
 }

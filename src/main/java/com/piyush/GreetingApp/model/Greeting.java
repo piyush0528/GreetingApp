@@ -12,7 +12,9 @@ public class Greeting {
     private String message;
 
     public Greeting() {}
-
+    public Greeting(String message) {
+        this.message = message;
+    }
     public Greeting(Long id, String message) {
         this.id = id;
         this.message = message;

@@ -5,6 +5,7 @@ import com.piyush.GreetingApp.model.Greeting;
 import com.piyush.GreetingApp.repository.GreetingRepository;
 import com.piyush.GreetingApp.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.slf4j.Logger;
@@ -74,5 +75,16 @@ public class GreetingController {
     @PutMapping("/updateRepo/{id}")
     public Greeting updateGreetingRepo(@PathVariable Long id, @RequestBody Greeting greetingDetails){
         return greetingService.updateGreeting(id, greetingDetails.getMessage());
+    }
+
+    @DeleteMapping("/deleteFromRepo/{id}")
+    public ResponseEntity<String> deleteGreetingRepo(@PathVariable Long id){
+        try {
+            greetingService.deleteGreeting(id);
+            return ResponseEntity.ok("Greeting deleted successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 }

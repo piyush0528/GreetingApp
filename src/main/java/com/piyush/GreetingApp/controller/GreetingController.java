@@ -65,4 +65,9 @@ public class GreetingController {
     public Greeting getGreetingById(@PathVariable Long id){
         return greetingService.getGreetById(id);
     }
+
+    @GetMapping("/getAll")
+    public List<Greeting> getAllGreetings(){
+        return greetingService.getAllGreetings();
+    }
 }

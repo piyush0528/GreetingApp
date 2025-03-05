@@ -1,4 +1,4 @@
-package com.piyush.GreetingApp.service;
+package com.example.GreetingApp.service;
 
 import com.piyush.GreetingApp.model.Greeting;
 import com.piyush.GreetingApp.repository.GreetingRepository;

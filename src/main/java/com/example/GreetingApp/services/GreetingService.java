@@ -1,5 +1,4 @@
 package com.example.GreetingApp.services;
-
 import com.example.GreetingApp.model.Greeting;
 import com.example.GreetingApp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ public class GreetingService {
     public String getSimpleGreeting() {
         return "Hello World";
     }
-
     public Greeting saveGreeting(String firstName, String lastName) {
         String message;
         if (firstName != null && lastName != null) {
@@ -27,32 +25,31 @@ public class GreetingService {
         } else {
             message = "Hello World!";
         }
-
         Greeting greeting = new Greeting(message);
         return greetingRepository.save(greeting);
     }
-    public Greeting getGreetById(Long id) {
-        return greetingRepository.findById(id).orElseThrow(()->new RuntimeException("Greeting not found with id: " + id));
+    public Greeting getGreetingById(Long id) {
+        return greetingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
     }
     public List<Greeting> getAllGreetings() {
         return greetingRepository.findAll();
     }
-    public Greeting updateGreeting(Long id, String newGreeting) {
-        Optional<Greeting> oldGreeting = greetingRepository.findById(id);
-        if(oldGreeting.isPresent()){
-            Greeting greeting = oldGreeting.get();
-            greeting.setMessage(newGreeting);
-            return greetingRepository.save(greeting);
-        }
-        else {
+    public Greeting updateGreeting(Long id, String newMessage) {
+        Optional<Greeting> existingGreeting = greetingRepository.findById(id);
+
+        if (existingGreeting.isPresent()) {
+            Greeting greeting = existingGreeting.get();
+            greeting.setMessage(newMessage);  // Update message
+            return greetingRepository.save(greeting);  // Save updated greeting
+        } else {
             throw new RuntimeException("Greeting not found with id: " + id);
         }
     }
-    public void deleteGreeting(Long id) {
-        if(greetingRepository.findById(id).isPresent()){
+    public void deleteGreetingbyrepo(Long id) {
+        if (greetingRepository.existsById(id)) {
             greetingRepository.deleteById(id);
-        }
-        else {
+        } else {
             throw new RuntimeException("Greeting not found with id: " + id);
         }
     }

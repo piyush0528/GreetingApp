@@ -9,4 +9,5 @@ public interface IAuthenticationService {
 
     String login(LoginDTO loginDTO);
 
+    String forgotPassword(String email, String newPassword);
 }
